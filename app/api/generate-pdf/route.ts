@@ -1,0 +1,52 @@
+import { NextRequest, NextResponse } from 'next/server'
+import puppeteer from 'puppeteer-core'
+import chromium from '@sparticuz/chromium'
+
+export async function POST(request: NextRequest) {
+    try {
+        const { html, url, options } = await request.json()
+
+        if (!html && !url) {
+            return NextResponse.json(
+                { error: 'Either html or url is required' },
+                { status: 400 }
+            )
+        }
+
+        const browser = await puppeteer.launch({
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: chromium.headless,
+        })
+
+        const page = await browser.newPage()
+
+        if (url) {
+            await page.goto(url, { waitUntil: 'networkidle0' })
+        } else {
+            await page.setContent(html, { waitUntil: 'networkidle0' })
+        }
+
+        const pdf = await page.pdf({
+            format: options?.format || 'A4',
+            printBackground: options?.printBackground ?? true,
+            margin: options?.margin || { top: '1cm', right: '1cm', bottom: '1cm', left: '1cm' },
+        })
+
+        await browser.close()
+
+        return new NextResponse(pdf, {
+            headers: {
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'attachment; filename="document.pdf"',
+            },
+        })
+    } catch (error) {
+        console.error('PDF generation error:', error)
+        return NextResponse.json(
+            { error: 'Failed to generate PDF' },
+            { status: 500 }
+        )
+    }
+}
