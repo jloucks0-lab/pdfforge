@@ -1,4 +1,17 @@
+'use client'
+
+import { useState } from 'react'
+
 export default function Dashboard() {
+    const [copied, setCopied] = useState(false)
+    const apiKey = 'sk_live_xxxxxxxxxxxxxxxxxxxx'
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(apiKey)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+    }
+
     return (
         <div className="min-h-screen bg-gray-50 py-8">
             <div className="container mx-auto px-4 max-w-6xl">
@@ -9,9 +22,12 @@ export default function Dashboard() {
                     <h2 className="text-2xl font-semibold mb-4">Your API Key</h2>
                     <p className="text-gray-600 mb-3">Use this key to authenticate your API requests</p>
                     <div className="bg-gray-100 p-4 rounded font-mono text-sm flex items-center justify-between">
-                        <span>sk_test_xxxxxxxxxxxxxxxxxxxxxxxx</span>
-                        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-xs">
-                            Copy
+                        <span>{apiKey}</span>
+                        <button
+                            onClick={handleCopy}
+                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-xs transition"
+                        >
+                            {copied ? 'Copied!' : 'Copy'}
                         </button>
                     </div>
                 </div>

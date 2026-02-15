@@ -2,43 +2,43 @@ import Link from 'next/link'
 
 export default function Home() {
     return (
-        <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white" >
-            <div className="container mx-auto px-4 py-16" >
-                <div className="text-center max-w-4xl mx-auto" >
-                    <h1 className="text-5xl font-bold text-gray-900 mb-6" >
+        <main style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #f9fafb, white)' }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 1rem' }}>
+                <div style={{ textAlign: 'center', maxWidth: '56rem', margin: '0 auto' }}>
+                    <h1 style={{ fontSize: '3rem', fontWeight: 'bold', color: '#111827', marginBottom: '1.5rem' }}>
                         PdfForge
                     </h1>
-                    < p className="text-xl text-gray-600 mb-8" >
-                        Professional PDF Generation API - Convert HTML and URLs to high - quality PDFs
+                    <p style={{ fontSize: '1.25rem', color: '#4b5563', marginBottom: '2rem' }}>
+                        Professional PDF Generation API - Convert HTML and URLs to high-quality PDFs
                     </p>
-                    < div className="flex gap-8 justify-center" >
+                    <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center' }}>
                         <Link
                             href="/pricing"
-                            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+                            style={{ backgroundColor: '#2563eb', color: 'white', padding: '0.75rem 2rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none' }}
                         >
                             Get Started
                         </Link>
-                        < Link
+                        <Link
                             href="/docs"
-                            className="bg-gray-200 text-gray-800 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition"
+                            style={{ backgroundColor: '#e5e7eb', color: '#1f2937', padding: '0.75rem 2rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none' }}
                         >
                             View Docs
                         </Link>
                     </div>
                 </div>
 
-                < div className="mt-20 grid md:grid-cols-3 gap-8" >
-                    <div className="p-6 bg-white rounded-lg shadow-sm" >
-                        <h3 className="text-xl font-semibold mb-3" > Fast & Reliable </h3>
-                        < p className="text-gray-600" > Generate PDFs in seconds with our optimized infrastructure </p>
+                <div style={{ marginTop: '5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
+                    <div style={{ padding: '1.5rem', backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                        <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.75rem' }}>Fast & Reliable</h3>
+                        <p style={{ color: '#4b5563' }}>Generate PDFs in seconds with our optimized infrastructure</p>
                     </div>
-                    < div className="p-6 bg-white rounded-lg shadow-sm" >
-                        <h3 className="text-xl font-semibold mb-3" > Simple API </h3>
-                        < p className="text-gray-600" > Easy - to - use REST API with comprehensive documentation </p>
+                    <div style={{ padding: '1.5rem', backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                        <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.75rem' }}>Simple API</h3>
+                        <p style={{ color: '#4b5563' }}>Easy-to-use REST API with comprehensive documentation</p>
                     </div>
-                    < div className="p-6 bg-white rounded-lg shadow-sm" >
-                        <h3 className="text-xl font-semibold mb-3" > Flexible Pricing </h3>
-                        < p className="text-gray-600" > Pay - as - you - go plans that scale with your needs </p>
+                    <div style={{ padding: '1.5rem', backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                        <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.75rem' }}>Flexible Pricing</h3>
+                        <p style={{ color: '#4b5563' }}>Pay-as-you-go plans that scale with your needs</p>
                     </div>
                 </div>
             </div>
