@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
+    serverComponentsExternalPackages: ['@sparticuz/chromium-min'],
     outputFileTracingIncludes: {
-      '/api/generate-pdf/**/*': ['./node_modules/@sparticuz/chromium-min/**/*'],
+      '/app/api/generate-pdf/route': [
+        './node_modules/@sparticuz/chromium-min/bin/**/*',
+      ],
     },
   },
 };
