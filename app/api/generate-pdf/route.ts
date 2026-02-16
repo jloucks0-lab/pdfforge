@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import puppeteer from 'puppeteer-core'
-import chromium from '@sparticuz/chromium'
+import chromium from '@sparticuz/chromium-min'
 
 export async function POST(request: NextRequest) {
     try {
@@ -13,10 +13,14 @@ export async function POST(request: NextRequest) {
             )
         }
 
+        // Set LD_LIBRARY_PATH to avoid missing library errors
+        const executablePath = await chromium.executablePath()
+        process.env.LD_LIBRARY_PATH = executablePath.substring(0, executablePath.lastIndexOf('/'))
+
         const browser = await puppeteer.launch({
             args: chromium.args,
             defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath(),
+            executablePath,
             headless: chromium.headless,
         })
 
