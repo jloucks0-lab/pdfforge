@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {
     outputFileTracingIncludes: {
-      '/api/generate-pdf': ['./node_modules/@sparticuz/chromium-min/**/*'],
+      '/api/generate-pdf/**/*': ['./node_modules/@sparticuz/chromium-min/**/*'],
     },
   },
 };
