@@ -1,0 +1,12 @@
+{
+    "functions": {
+        "app/api/generate-pdf/route.ts": {
+            "memory": 1024,
+            "maxDuration": 30
+        }
+    },
+    "env": {
+        "FONTCONFIG_PATH": "/tmp",
+        "LD_LIBRARY_PATH": "/tmp/lib"
+    }
+}

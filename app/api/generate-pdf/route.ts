@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import puppeteer from 'puppeteer-core'
-import chrome from 'chrome-aws-lambda'
+import chromium from '@sparticuz/chromium'
 
 export async function POST(request: NextRequest) {
     try {
@@ -14,10 +14,10 @@ export async function POST(request: NextRequest) {
         }
 
         const browser = await puppeteer.launch({
-            args: chrome.args,
-            defaultViewport: chrome.defaultViewport,
-            executablePath: await chrome.executablePath,
-            headless: chrome.headless,
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: chromium.headless,
         })
 
         const page = await browser.newPage()
