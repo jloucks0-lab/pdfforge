@@ -14,10 +14,18 @@ export async function POST(request: NextRequest) {
         }
 
         const browser = await puppeteer.launch({
-            args: chromium.args,
+            args: [
+                ...chromium.args,
+                '--disable-gpu',
+                '--disable-dev-shm-usage',
+                '--disable-setuid-sandbox',
+                '--no-sandbox',
+                '--single-process',
+                '--no-zygote'
+            ],
             defaultViewport: chromium.defaultViewport,
             executablePath: await chromium.executablePath(),
-            headless: true,
+            headless: chromium.headless,
         })
 
         const page = await browser.newPage()
