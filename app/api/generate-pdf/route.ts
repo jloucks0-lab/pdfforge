@@ -13,6 +13,13 @@ export async function POST(request: NextRequest) {
             )
         }
 
+        // Get executable path with explicit tmp directory
+        const executablePath = await chromium.executablePath({
+            installPath: '/tmp'
+        })
+
+        console.log('Chromium executable path:', executablePath)
+
         const browser = await puppeteer.launch({
             args: [
                 ...chromium.args,
@@ -24,7 +31,7 @@ export async function POST(request: NextRequest) {
                 '--no-zygote'
             ],
             defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath(),
+            executablePath,
             headless: chromium.headless,
         })
 
