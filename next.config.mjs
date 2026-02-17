@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Railway can handle the full chromium package
-};
+const nextConfig = {};
 
 export default nextConfig;
