@@ -13,7 +13,7 @@ export default function Docs() {
           </p>
           <div className="bg-blue-50 border-l-4 border-blue-600 p-4">
             <p className="text-blue-900">
-              <strong>Base URL:</strong> <code className="bg-blue-100 px-2 py-1 rounded">https://api.pdfforge.io/v1</code>
+              <strong>Base URL:</strong> <code className="bg-blue-100 px-2 py-1 rounded">https://pdfforge-production.up.railway.app</code>
             </p>
           </div>
         </div>
@@ -42,7 +42,7 @@ export default function Docs() {
           </p>
           <div className="bg-gray-900 text-white p-4 rounded-lg overflow-x-auto">
             <pre className="text-sm">
-              {`curl -X POST https://api.pdfforge.io/v1/generate \\
+              {`curl -X POST https://pdfforge-production.up.railway.app/api/generate-pdf \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -144,7 +144,7 @@ export default function Docs() {
                 {`const axios = require('axios');
 
 const response = await axios.post(
-  'https://api.pdfforge.io/v1/generate',
+  'https://pdfforge-production.up.railway.app/api/generate-pdf',
   {
     html: '<h1>Invoice</h1><p>Total: $100</p>',
     format: 'A4',
@@ -170,7 +170,7 @@ console.log(response.data.pdfUrl);`}
                 {`import requests
 
 response = requests.post(
-    'https://api.pdfforge.io/v1/generate',
+    'https://pdfforge-production.up.railway.app/api/generate-pdf',
     headers={
         'Authorization': 'Bearer YOUR_API_KEY',
         'Content-Type': 'application/json'
@@ -193,7 +193,7 @@ print(data['pdfUrl'])`}
             <div className="bg-gray-900 text-white p-4 rounded-lg overflow-x-auto">
               <pre className="text-sm">
                 {`<?php
-$ch = curl_init('https://api.pdfforge.io/v1/generate');
+$ch = curl_init('https://pdfforge-production.up.railway.app/api/generate-pdf');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
