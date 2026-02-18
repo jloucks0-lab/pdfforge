@@ -52,7 +52,7 @@ export async function validateApiKey(request: NextRequest) {
     // Check if user has an active subscription
     const { data: subscription } = await supabase
         .from('subscriptions')
-        .select('status, plan_id')
+        .select('status, plan')
         .eq('user_id', keyData.user_id)
         .eq('status', 'active')
         .single()
@@ -68,6 +68,6 @@ export async function validateApiKey(request: NextRequest) {
     return {
         valid: true,
         userId: keyData.user_id,
-        planId: subscription.plan_id
+        plan: subscription.plan
     }
 }
