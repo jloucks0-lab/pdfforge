@@ -1,8 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
 import puppeteer from 'puppeteer'
+import { validateApiKey } from '@/lib/auth'
 
 export async function POST(request: NextRequest) {
     try {
+        // Validate API key
+        const authResult = await validateApiKey(request)
+
+        if (!authResult.valid) {
+            return NextResponse.json(
+                { error: authResult.error },
+                { status: authResult.status }
+            )
+        }
+
         const { html, url, options } = await request.json()
 
         if (!html && !url) {
