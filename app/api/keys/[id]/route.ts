@@ -9,7 +9,7 @@ const supabase = createClient(
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const authHeader = request.headers.get('authorization')
@@ -24,7 +24,7 @@ export async function DELETE(
             return NextResponse.json({ error: 'Invalid API key' }, { status: 401 })
         }
 
-        const keyId = params.id
+        const { id: keyId } = await params
 
         // Check if key belongs to user
         const { data: keyData } = await supabase
@@ -70,7 +70,7 @@ export async function DELETE(
 
 export async function PATCH(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const authHeader = request.headers.get('authorization')
@@ -85,7 +85,7 @@ export async function PATCH(
             return NextResponse.json({ error: 'Invalid API key' }, { status: 401 })
         }
 
-        const keyId = params.id
+        const { id: keyId } = await params
         const { name, is_active } = await request.json()
 
         // Check if key belongs to user
