@@ -17,7 +17,7 @@ export default function Home() {
                             href="/pricing"
                             style={{ backgroundColor: '#2563eb', color: 'white', padding: '1rem 2.5rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none', fontSize: '1.125rem' }}
                         >
-                            Start Free Trial
+                            Get Started
                         </Link>
                         <Link
                             href="/docs"
@@ -27,7 +27,7 @@ export default function Home() {
                         </Link>
                     </div>
                     <p style={{ marginTop: '1.5rem', color: '#6b7280', fontSize: '0.875rem' }}>
-                        No credit card required • 1,000 free PDFs to start
+                        Start generating PDFs in minutes with our developer-friendly API
                     </p>
                 </div>
             </div>

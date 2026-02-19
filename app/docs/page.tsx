@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 
 export default function Docs() {
@@ -17,15 +19,71 @@ export default function Docs() {
         {/* Quick Navigation */}
         <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', marginBottom: '2rem', border: '1px solid #e5e7eb' }}>
           <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Jump to:</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem' }}>
-            <a href="#intro" style={{ color: '#2563eb', textDecoration: 'none' }}>Introduction</a>
-            <a href="#auth" style={{ color: '#2563eb', textDecoration: 'none' }}>Authentication</a>
-            <a href="#quickstart" style={{ color: '#2563eb', textDecoration: 'none' }}>Quick Start</a>
-            <a href="#endpoints" style={{ color: '#2563eb', textDecoration: 'none' }}>Endpoints</a>
-            <a href="#examples" style={{ color: '#2563eb', textDecoration: 'none' }}>Code Examples</a>
-            <a href="#errors" style={{ color: '#2563eb', textDecoration: 'none' }}>Error Handling</a>
-            <a href="#limits" style={{ color: '#2563eb', textDecoration: 'none' }}>Rate Limits</a>
-            <a href="#support" style={{ color: '#2563eb', textDecoration: 'none' }}>Support</a>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
+            <a
+              href="#intro"
+              style={{ color: '#2563eb', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+            >
+              Introduction
+            </a>
+            <a
+              href="#auth"
+              style={{ color: '#2563eb', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+            >
+              Authentication
+            </a>
+            <a
+              href="#quickstart"
+              style={{ color: '#2563eb', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+            >
+              Quick Start
+            </a>
+            <a
+              href="#endpoints"
+              style={{ color: '#2563eb', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+            >
+              Endpoints
+            </a>
+            <a
+              href="#examples"
+              style={{ color: '#2563eb', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+            >
+              Code Examples
+            </a>
+            <a
+              href="#errors"
+              style={{ color: '#2563eb', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+            >
+              Error Handling
+            </a>
+            <a
+              href="#limits"
+              style={{ color: '#2563eb', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+            >
+              Rate Limits
+            </a>
+            <a
+              href="#support"
+              style={{ color: '#2563eb', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+            >
+              Support
+            </a>
           </div>
         </div>
 
