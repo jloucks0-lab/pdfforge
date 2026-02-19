@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import puppeteer from 'puppeteer'
 import { validateApiKey } from '@/lib/auth'
 import { createClient } from '@supabase/supabase-js'
+import { sendUsageWarningEmail } from '@/lib/email'
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -100,6 +101,28 @@ export async function POST(request: NextRequest) {
                     endpoint: '/api/generate-pdf',
                     status: 200
                 })
+
+            // Check if user hit 90% threshold and send warning
+            const newUsageCount = (usageCount || 0) + 1
+            const percentage = Math.round((newUsageCount / planLimit) * 100)
+
+            if (percentage === 90 || percentage === 95) {
+                // Get user email
+                const { data: user } = await supabase
+                    .from('users')
+                    .select('email')
+                    .eq('id', userId)
+                    .single()
+
+                if (user?.email) {
+                    await sendUsageWarningEmail({
+                        email: user.email,
+                        current: newUsageCount,
+                        limit: planLimit,
+                        percentage
+                    })
+                }
+            }
         }
 
         return new NextResponse(Buffer.from(pdf), {

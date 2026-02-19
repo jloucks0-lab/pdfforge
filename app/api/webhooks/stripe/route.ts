@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@supabase/supabase-js'
 import Stripe from 'stripe'
+import { sendWelcomeEmail, sendPaymentFailedEmail } from '@/lib/email'
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -88,6 +89,13 @@ export async function POST(request: NextRequest) {
                         is_active: true
                     })
 
+                // Send welcome email
+                await sendWelcomeEmail({
+                    email,
+                    apiKey,
+                    plan: planId
+                })
+
                 console.log(`Subscription created for user ${userId}`)
                 break
             }
@@ -117,6 +125,34 @@ export async function POST(request: NextRequest) {
                     .eq('stripe_subscription_id', subscription.id)
 
                 console.log(`Subscription cancelled: ${subscription.id}`)
+                break
+            }
+
+            case 'invoice.payment_failed': {
+                const invoice = event.data.object as Stripe.Invoice
+
+                // Get user from customer ID
+                const { data: user } = await supabase
+                    .from('users')
+                    .select('email')
+                    .eq('stripe_customer_id', invoice.customer as string)
+                    .single()
+
+                if (user?.email) {
+                    // Get subscription to find plan
+                    const { data: subscription } = await supabase
+                        .from('subscriptions')
+                        .select('plan')
+                        .eq('stripe_customer_id', invoice.customer as string)
+                        .single()
+
+                    await sendPaymentFailedEmail({
+                        email: user.email,
+                        plan: subscription?.plan || 'starter'
+                    })
+                }
+
+                console.log(`Payment failed for invoice: ${invoice.id}`)
                 break
             }
 
