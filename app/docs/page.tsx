@@ -1,86 +1,88 @@
+import Link from 'next/link'
+
 export default function Docs() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #f9fafb, white)' }}>
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <h1 className="text-5xl font-bold mb-4">API Documentation</h1>
-          <p className="text-xl text-blue-100">
+      <div style={{ background: 'linear-gradient(to right, #2563eb, #1e40af)', color: 'white', padding: '4rem 1rem' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
+          <h1 style={{ fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>API Documentation</h1>
+          <p style={{ fontSize: '1.25rem', color: '#dbeafe' }}>
             Everything you need to integrate PDF generation into your application
           </p>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 max-w-5xl py-12">
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '3rem 1rem' }}>
         {/* Quick Navigation */}
-        <div className="bg-white p-6 rounded-xl shadow-lg mb-8 border border-gray-100">
-          <h3 className="text-lg font-semibold mb-4">Jump to:</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <a href="#intro" className="text-blue-600 hover:text-blue-700 hover:underline">Introduction</a>
-            <a href="#auth" className="text-blue-600 hover:text-blue-700 hover:underline">Authentication</a>
-            <a href="#quickstart" className="text-blue-600 hover:text-blue-700 hover:underline">Quick Start</a>
-            <a href="#endpoints" className="text-blue-600 hover:text-blue-700 hover:underline">Endpoints</a>
-            <a href="#examples" className="text-blue-600 hover:text-blue-700 hover:underline">Code Examples</a>
-            <a href="#errors" className="text-blue-600 hover:text-blue-700 hover:underline">Error Handling</a>
-            <a href="#limits" className="text-blue-600 hover:text-blue-700 hover:underline">Rate Limits</a>
-            <a href="#support" className="text-blue-600 hover:text-blue-700 hover:underline">Support</a>
+        <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', marginBottom: '2rem', border: '1px solid #e5e7eb' }}>
+          <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem' }}>Jump to:</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.75rem' }}>
+            <a href="#intro" style={{ color: '#2563eb', textDecoration: 'none' }}>Introduction</a>
+            <a href="#auth" style={{ color: '#2563eb', textDecoration: 'none' }}>Authentication</a>
+            <a href="#quickstart" style={{ color: '#2563eb', textDecoration: 'none' }}>Quick Start</a>
+            <a href="#endpoints" style={{ color: '#2563eb', textDecoration: 'none' }}>Endpoints</a>
+            <a href="#examples" style={{ color: '#2563eb', textDecoration: 'none' }}>Code Examples</a>
+            <a href="#errors" style={{ color: '#2563eb', textDecoration: 'none' }}>Error Handling</a>
+            <a href="#limits" style={{ color: '#2563eb', textDecoration: 'none' }}>Rate Limits</a>
+            <a href="#support" style={{ color: '#2563eb', textDecoration: 'none' }}>Support</a>
           </div>
         </div>
 
         {/* Introduction */}
-        <div id="intro" className="bg-white p-8 rounded-xl shadow-lg mb-8 border border-gray-100">
-          <div className="flex items-start gap-4 mb-4">
-            <span className="text-4xl">📘</span>
+        <div id="intro" style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', marginBottom: '2rem', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', alignItems: 'start', gap: '1rem', marginBottom: '1rem' }}>
+            <span style={{ fontSize: '2.5rem' }}>📘</span>
             <div>
-              <h2 className="text-3xl font-bold mb-3">Introduction</h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-4">
+              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Introduction</h2>
+              <p style={{ color: '#6b7280', fontSize: '1.125rem', lineHeight: '1.75', marginBottom: '1rem' }}>
                 PdfForge is a professional PDF generation service that converts HTML and URLs to high-quality PDF documents.
                 Our API is built for developers who need reliable, scalable PDF generation with pixel-perfect rendering.
               </p>
             </div>
           </div>
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-600 p-5 rounded-r-lg">
-            <p className="text-blue-900 text-lg">
-              <strong>Base URL:</strong> <code className="bg-white px-3 py-1 rounded font-mono text-sm ml-2">https://pdfforge-production.up.railway.app</code>
+          <div style={{ background: 'linear-gradient(to right, #eff6ff, #dbeafe)', borderLeft: '4px solid #2563eb', padding: '1.25rem', borderRadius: '0 0.5rem 0.5rem 0' }}>
+            <p style={{ color: '#1e40af', fontSize: '1.125rem', margin: 0 }}>
+              <strong>Base URL:</strong> <code style={{ backgroundColor: 'white', padding: '0.25rem 0.75rem', borderRadius: '0.25rem', fontFamily: 'monospace', fontSize: '0.875rem', marginLeft: '0.5rem' }}>https://pdfforge-production.up.railway.app</code>
             </p>
           </div>
         </div>
 
         {/* Authentication */}
-        <div id="auth" className="bg-white p-8 rounded-xl shadow-lg mb-8 border border-gray-100">
-          <div className="flex items-start gap-4 mb-4">
-            <span className="text-4xl">🔐</span>
-            <div className="flex-1">
-              <h2 className="text-3xl font-bold mb-3">Authentication</h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-4">
+        <div id="auth" style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', marginBottom: '2rem', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', alignItems: 'start', gap: '1rem', marginBottom: '1rem' }}>
+            <span style={{ fontSize: '2.5rem' }}>🔐</span>
+            <div style={{ flex: 1 }}>
+              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Authentication</h2>
+              <p style={{ color: '#6b7280', fontSize: '1.125rem', lineHeight: '1.75', marginBottom: '1rem' }}>
                 All API requests require authentication using your API key. Include your key in the Authorization header with Bearer authentication.
               </p>
             </div>
           </div>
-          <div className="bg-gray-900 text-gray-100 p-5 rounded-lg mb-4 font-mono text-sm overflow-x-auto">
-            <div className="text-green-400 mb-1">// Request Header</div>
+          <div style={{ backgroundColor: '#1f2937', color: '#e5e7eb', padding: '1.25rem', borderRadius: '0.5rem', marginBottom: '1rem', fontFamily: 'monospace', fontSize: '0.875rem', overflowX: 'auto' }}>
+            <div style={{ color: '#10b981', marginBottom: '0.25rem' }}>// Request Header</div>
             <code>Authorization: Bearer YOUR_API_KEY</code>
           </div>
-          <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-            <p className="text-blue-900">
-              💡 <strong>Find your API key:</strong> Visit your <a href="/dashboard" className="text-blue-600 hover:text-blue-700 underline font-semibold">dashboard</a> to copy your unique API key.
+          <div style={{ backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', padding: '1rem', borderRadius: '0.5rem' }}>
+            <p style={{ color: '#1e40af', margin: 0 }}>
+              💡 <strong>Find your API key:</strong> Visit your <Link href="/dashboard" style={{ color: '#2563eb', textDecoration: 'underline', fontWeight: '600' }}>dashboard</Link> to copy your unique API key.
             </p>
           </div>
         </div>
 
         {/* Quick Start */}
-        <div id="quickstart" className="bg-white p-8 rounded-xl shadow-lg mb-8 border border-gray-100">
-          <div className="flex items-start gap-4 mb-4">
-            <span className="text-4xl">⚡</span>
-            <div className="flex-1">
-              <h2 className="text-3xl font-bold mb-3">Quick Start</h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-4">
+        <div id="quickstart" style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', marginBottom: '2rem', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', alignItems: 'start', gap: '1rem', marginBottom: '1rem' }}>
+            <span style={{ fontSize: '2.5rem' }}>⚡</span>
+            <div style={{ flex: 1 }}>
+              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Quick Start</h2>
+              <p style={{ color: '#6b7280', fontSize: '1.125rem', lineHeight: '1.75', marginBottom: '1rem' }}>
                 Generate your first PDF in seconds with this simple example:
               </p>
             </div>
           </div>
-          <div className="bg-gray-900 text-gray-100 p-5 rounded-lg overflow-x-auto">
-            <pre className="font-mono text-sm leading-relaxed">
+          <div style={{ backgroundColor: '#1f2937', color: '#e5e7eb', padding: '1.25rem', borderRadius: '0.5rem', overflowX: 'auto', marginBottom: '1rem' }}>
+            <pre style={{ fontFamily: 'monospace', fontSize: '0.875rem', lineHeight: '1.5', margin: 0, whiteSpace: 'pre-wrap' }}>
               {`curl -X POST https://pdfforge-production.up.railway.app/api/generate-pdf \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
@@ -93,104 +95,102 @@ export default function Docs() {
   }' -o output.pdf`}
             </pre>
           </div>
-          <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p className="text-green-900">✅ <strong>Success!</strong> Your PDF will be downloaded as <code className="bg-white px-2 py-1 rounded">output.pdf</code></p>
+          <div style={{ padding: '1rem', backgroundColor: '#d1fae5', border: '1px solid #6ee7b7', borderRadius: '0.5rem' }}>
+            <p style={{ color: '#065f46', margin: 0 }}>✅ <strong>Success!</strong> Your PDF will be downloaded as <code style={{ backgroundColor: 'white', padding: '0.125rem 0.5rem', borderRadius: '0.25rem' }}>output.pdf</code></p>
           </div>
         </div>
 
         {/* API Endpoints */}
-        <div id="endpoints" className="bg-white p-8 rounded-xl shadow-lg mb-8 border border-gray-100">
-          <div className="flex items-start gap-4 mb-6">
-            <span className="text-4xl">🔌</span>
+        <div id="endpoints" style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', marginBottom: '2rem', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', alignItems: 'start', gap: '1rem', marginBottom: '1.5rem' }}>
+            <span style={{ fontSize: '2.5rem' }}>🔌</span>
             <div>
-              <h2 className="text-3xl font-bold mb-3">API Endpoints</h2>
+              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>API Endpoints</h2>
             </div>
           </div>
 
-          <div className="border-l-4 border-green-500 pl-6 mb-6">
-            <h3 className="text-2xl font-bold mb-3 flex items-center gap-3">
-              <span className="bg-green-600 text-white px-3 py-1 rounded-lg text-sm font-bold">POST</span>
-              <code className="text-gray-700">/api/generate-pdf</code>
+          <div style={{ borderLeft: '4px solid #10b981', paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <span style={{ backgroundColor: '#10b981', color: 'white', padding: '0.25rem 0.75rem', borderRadius: '0.5rem', fontSize: '0.875rem', fontWeight: 'bold' }}>POST</span>
+              <code style={{ color: '#374151' }}>/api/generate-pdf</code>
             </h3>
-            <p className="text-gray-600 text-lg mb-6">Generate a PDF from HTML content or a public URL.</p>
+            <p style={{ color: '#6b7280', fontSize: '1.125rem', marginBottom: '1.5rem' }}>Generate a PDF from HTML content or a public URL.</p>
 
-            <h4 className="text-xl font-bold mb-3">Request Parameters:</h4>
-            <div className="overflow-x-auto">
-              <table className="w-full border border-gray-200 rounded-lg overflow-hidden">
-                <thead className="bg-gray-50">
+            <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Request Parameters:</h4>
+            <div style={{ overflowX: 'auto', marginBottom: '1.5rem' }}>
+              <table style={{ width: '100%', border: '1px solid #e5e7eb', borderRadius: '0.5rem', borderCollapse: 'collapse' }}>
+                <thead style={{ backgroundColor: '#f9fafb' }}>
                   <tr>
-                    <th className="text-left py-3 px-4 font-semibold">Parameter</th>
-                    <th className="text-left py-3 px-4 font-semibold">Type</th>
-                    <th className="text-left py-3 px-4 font-semibold">Required</th>
-                    <th className="text-left py-3 px-4 font-semibold">Description</th>
+                    <th style={{ textAlign: 'left', padding: '0.75rem 1rem', fontWeight: '600', borderBottom: '1px solid #e5e7eb' }}>Parameter</th>
+                    <th style={{ textAlign: 'left', padding: '0.75rem 1rem', fontWeight: '600', borderBottom: '1px solid #e5e7eb' }}>Type</th>
+                    <th style={{ textAlign: 'left', padding: '0.75rem 1rem', fontWeight: '600', borderBottom: '1px solid #e5e7eb' }}>Required</th>
+                    <th style={{ textAlign: 'left', padding: '0.75rem 1rem', fontWeight: '600', borderBottom: '1px solid #e5e7eb' }}>Description</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-3 px-4"><code className="bg-gray-100 px-2 py-1 rounded text-sm">html</code></td>
-                    <td className="py-3 px-4 text-gray-600">string</td>
-                    <td className="py-3 px-4 text-amber-600 font-semibold">*</td>
-                    <td className="py-3 px-4 text-gray-600">HTML content to convert to PDF</td>
+                <tbody>
+                  <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+                    <td style={{ padding: '0.75rem 1rem' }}><code style={{ backgroundColor: '#f3f4f6', padding: '0.125rem 0.5rem', borderRadius: '0.25rem', fontSize: '0.875rem' }}>html</code></td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>string</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#f59e0b', fontWeight: '600' }}>*</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>HTML content to convert to PDF</td>
                   </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-3 px-4"><code className="bg-gray-100 px-2 py-1 rounded text-sm">url</code></td>
-                    <td className="py-3 px-4 text-gray-600">string</td>
-                    <td className="py-3 px-4 text-amber-600 font-semibold">*</td>
-                    <td className="py-3 px-4 text-gray-600">Public URL to convert to PDF</td>
+                  <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+                    <td style={{ padding: '0.75rem 1rem' }}><code style={{ backgroundColor: '#f3f4f6', padding: '0.125rem 0.5rem', borderRadius: '0.25rem', fontSize: '0.875rem' }}>url</code></td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>string</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#f59e0b', fontWeight: '600' }}>*</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>Public URL to convert to PDF</td>
                   </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-3 px-4"><code className="bg-gray-100 px-2 py-1 rounded text-sm">options.format</code></td>
-                    <td className="py-3 px-4 text-gray-600">string</td>
-                    <td className="py-3 px-4 text-gray-400">Optional</td>
-                    <td className="py-3 px-4 text-gray-600">Page format: A4, Letter, Legal (default: A4)</td>
+                  <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+                    <td style={{ padding: '0.75rem 1rem' }}><code style={{ backgroundColor: '#f3f4f6', padding: '0.125rem 0.5rem', borderRadius: '0.25rem', fontSize: '0.875rem' }}>options.format</code></td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>string</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#9ca3af' }}>Optional</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>Page format: A4, Letter, Legal (default: A4)</td>
                   </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-3 px-4"><code className="bg-gray-100 px-2 py-1 rounded text-sm">options.printBackground</code></td>
-                    <td className="py-3 px-4 text-gray-600">boolean</td>
-                    <td className="py-3 px-4 text-gray-400">Optional</td>
-                    <td className="py-3 px-4 text-gray-600">Include background graphics (default: true)</td>
+                  <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+                    <td style={{ padding: '0.75rem 1rem' }}><code style={{ backgroundColor: '#f3f4f6', padding: '0.125rem 0.5rem', borderRadius: '0.25rem', fontSize: '0.875rem' }}>options.printBackground</code></td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>boolean</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#9ca3af' }}>Optional</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>Include background graphics (default: true)</td>
                   </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-3 px-4"><code className="bg-gray-100 px-2 py-1 rounded text-sm">options.landscape</code></td>
-                    <td className="py-3 px-4 text-gray-600">boolean</td>
-                    <td className="py-3 px-4 text-gray-400">Optional</td>
-                    <td className="py-3 px-4 text-gray-600">Landscape orientation (default: false)</td>
+                  <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+                    <td style={{ padding: '0.75rem 1rem' }}><code style={{ backgroundColor: '#f3f4f6', padding: '0.125rem 0.5rem', borderRadius: '0.25rem', fontSize: '0.875rem' }}>options.landscape</code></td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>boolean</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#9ca3af' }}>Optional</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>Landscape orientation (default: false)</td>
                   </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-3 px-4"><code className="bg-gray-100 px-2 py-1 rounded text-sm">options.margin</code></td>
-                    <td className="py-3 px-4 text-gray-600">object</td>
-                    <td className="py-3 px-4 text-gray-400">Optional</td>
-                    <td className="py-3 px-4 text-gray-600">Page margins: top, right, bottom, left</td>
+                  <tr>
+                    <td style={{ padding: '0.75rem 1rem' }}><code style={{ backgroundColor: '#f3f4f6', padding: '0.125rem 0.5rem', borderRadius: '0.25rem', fontSize: '0.875rem' }}>options.margin</code></td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>object</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#9ca3af' }}>Optional</td>
+                    <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>Page margins: top, right, bottom, left</td>
                   </tr>
                 </tbody>
               </table>
-              <p className="text-sm text-amber-600 mt-3">* Either <code>html</code> or <code>url</code> is required (not both)</p>
+              <p style={{ fontSize: '0.875rem', color: '#f59e0b', marginTop: '0.75rem' }}>* Either <code>html</code> or <code>url</code> is required (not both)</p>
             </div>
 
-            <h4 className="text-xl font-bold mb-3 mt-6">Response:</h4>
-            <p className="text-gray-600 mb-3">Returns the PDF file as a binary stream with <code className="bg-gray-100 px-2 py-1 rounded text-sm">Content-Type: application/pdf</code></p>
+            <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Response:</h4>
+            <p style={{ color: '#6b7280', marginBottom: '0.75rem' }}>Returns the PDF file as a binary stream with <code style={{ backgroundColor: '#f3f4f6', padding: '0.125rem 0.5rem', borderRadius: '0.25rem', fontSize: '0.875rem' }}>Content-Type: application/pdf</code></p>
           </div>
         </div>
 
-        {/* Code Examples */}
-        <div id="examples" className="bg-white p-8 rounded-xl shadow-lg mb-8 border border-gray-100">
-          <div className="flex items-start gap-4 mb-6">
-            <span className="text-4xl">💻</span>
+        {/* Code Examples - Continued in next message due to length */}
+        <div id="examples" style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', marginBottom: '2rem', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', alignItems: 'start', gap: '1rem', marginBottom: '1.5rem' }}>
+            <span style={{ fontSize: '2.5rem' }}>💻</span>
             <div>
-              <h2 className="text-3xl font-bold mb-3">Code Examples</h2>
-              <p className="text-gray-600 text-lg">Get started quickly with these language-specific examples</p>
+              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Code Examples</h2>
+              <p style={{ color: '#6b7280', fontSize: '1.125rem' }}>Get started quickly with these language-specific examples</p>
             </div>
           </div>
 
-          <div className="space-y-6">
-            {/* JavaScript */}
-            <div>
-              <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                <span className="text-yellow-500">🟨</span> JavaScript (Node.js)
-              </h3>
-              <div className="bg-gray-900 text-gray-100 p-5 rounded-lg overflow-x-auto">
-                <pre className="font-mono text-sm leading-relaxed">
-                  {`const response = await fetch(
+          <div style={{ marginBottom: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ color: '#f59e0b' }}>🟨</span> JavaScript (Node.js)
+            </h3>
+            <div style={{ backgroundColor: '#1f2937', color: '#e5e7eb', padding: '1.25rem', borderRadius: '0.5rem', overflowX: 'auto' }}>
+              <pre style={{ fontFamily: 'monospace', fontSize: '0.875rem', lineHeight: '1.5', margin: 0, whiteSpace: 'pre-wrap' }}>
+                {`const response = await fetch(
   'https://pdfforge-production.up.railway.app/api/generate-pdf',
   {
     method: 'POST',
@@ -207,18 +207,17 @@ export default function Docs() {
 
 const pdfBlob = await response.blob();
 // Save or process the PDF blob`}
-                </pre>
-              </div>
+              </pre>
             </div>
+          </div>
 
-            {/* Python */}
-            <div>
-              <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                <span className="text-blue-500">🐍</span> Python
-              </h3>
-              <div className="bg-gray-900 text-gray-100 p-5 rounded-lg overflow-x-auto">
-                <pre className="font-mono text-sm leading-relaxed">
-                  {`import requests
+          <div style={{ marginBottom: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ color: '#3b82f6' }}>🐍</span> Python
+            </h3>
+            <div style={{ backgroundColor: '#1f2937', color: '#e5e7eb', padding: '1.25rem', borderRadius: '0.5rem', overflowX: 'auto' }}>
+              <pre style={{ fontFamily: 'monospace', fontSize: '0.875rem', lineHeight: '1.5', margin: 0, whiteSpace: 'pre-wrap' }}>
+                {`import requests
 
 response = requests.post(
     'https://pdfforge-production.up.railway.app/api/generate-pdf',
@@ -234,18 +233,17 @@ response = requests.post(
 
 with open('output.pdf', 'wb') as f:
     f.write(response.content)`}
-                </pre>
-              </div>
+              </pre>
             </div>
+          </div>
 
-            {/* PHP */}
-            <div>
-              <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                <span className="text-purple-500">🐘</span> PHP
-              </h3>
-              <div className="bg-gray-900 text-gray-100 p-5 rounded-lg overflow-x-auto">
-                <pre className="font-mono text-sm leading-relaxed">
-                  {`<?php
+          <div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ color: '#a855f7' }}>🐘</span> PHP
+            </h3>
+            <div style={{ backgroundColor: '#1f2937', color: '#e5e7eb', padding: '1.25rem', borderRadius: '0.5rem', overflowX: 'auto' }}>
+              <pre style={{ fontFamily: 'monospace', fontSize: '0.875rem', lineHeight: '1.5', margin: 0, whiteSpace: 'pre-wrap' }}>
+                {`<?php
 $ch = curl_init('https://pdfforge-production.up.railway.app/api/generate-pdf');
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -262,126 +260,125 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
 $pdf = curl_exec($ch);
 file_put_contents('output.pdf', $pdf);
 ?>`}
-                </pre>
-              </div>
+              </pre>
             </div>
           </div>
         </div>
 
         {/* Error Handling */}
-        <div id="errors" className="bg-white p-8 rounded-xl shadow-lg mb-8 border border-gray-100">
-          <div className="flex items-start gap-4 mb-6">
-            <span className="text-4xl">⚠️</span>
+        <div id="errors" style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', marginBottom: '2rem', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', alignItems: 'start', gap: '1rem', marginBottom: '1.5rem' }}>
+            <span style={{ fontSize: '2.5rem' }}>⚠️</span>
             <div>
-              <h2 className="text-3xl font-bold mb-3">Error Handling</h2>
-              <p className="text-gray-600 text-lg mb-6">The API uses standard HTTP response codes to indicate success or failure.</p>
+              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Error Handling</h2>
+              <p style={{ color: '#6b7280', fontSize: '1.125rem', marginBottom: '1.5rem' }}>The API uses standard HTTP response codes to indicate success or failure.</p>
             </div>
           </div>
 
-          <div className="overflow-x-auto mb-6">
-            <table className="w-full border border-gray-200 rounded-lg overflow-hidden">
-              <thead className="bg-gray-50">
+          <div style={{ overflowX: 'auto', marginBottom: '1.5rem' }}>
+            <table style={{ width: '100%', border: '1px solid #e5e7eb', borderRadius: '0.5rem', borderCollapse: 'collapse' }}>
+              <thead style={{ backgroundColor: '#f9fafb' }}>
                 <tr>
-                  <th className="text-left py-3 px-4 font-semibold">Status Code</th>
-                  <th className="text-left py-3 px-4 font-semibold">Meaning</th>
-                  <th className="text-left py-3 px-4 font-semibold">Description</th>
+                  <th style={{ textAlign: 'left', padding: '0.75rem 1rem', fontWeight: '600', borderBottom: '1px solid #e5e7eb' }}>Status Code</th>
+                  <th style={{ textAlign: 'left', padding: '0.75rem 1rem', fontWeight: '600', borderBottom: '1px solid #e5e7eb' }}>Meaning</th>
+                  <th style={{ textAlign: 'left', padding: '0.75rem 1rem', fontWeight: '600', borderBottom: '1px solid #e5e7eb' }}>Description</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
-                <tr className="hover:bg-gray-50">
-                  <td className="py-3 px-4"><code className="bg-green-100 text-green-700 px-2 py-1 rounded font-bold">200</code></td>
-                  <td className="py-3 px-4 font-semibold text-green-700">Success</td>
-                  <td className="py-3 px-4 text-gray-600">PDF generated successfully</td>
+              <tbody>
+                <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+                  <td style={{ padding: '0.75rem 1rem' }}><code style={{ backgroundColor: '#d1fae5', color: '#065f46', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', fontWeight: 'bold' }}>200</code></td>
+                  <td style={{ padding: '0.75rem 1rem', fontWeight: '600', color: '#065f46' }}>Success</td>
+                  <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>PDF generated successfully</td>
                 </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="py-3 px-4"><code className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded font-bold">400</code></td>
-                  <td className="py-3 px-4 font-semibold text-yellow-700">Bad Request</td>
-                  <td className="py-3 px-4 text-gray-600">Invalid HTML or parameters</td>
+                <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+                  <td style={{ padding: '0.75rem 1rem' }}><code style={{ backgroundColor: '#fef3c7', color: '#92400e', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', fontWeight: 'bold' }}>400</code></td>
+                  <td style={{ padding: '0.75rem 1rem', fontWeight: '600', color: '#92400e' }}>Bad Request</td>
+                  <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>Invalid HTML or parameters</td>
                 </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="py-3 px-4"><code className="bg-red-100 text-red-700 px-2 py-1 rounded font-bold">401</code></td>
-                  <td className="py-3 px-4 font-semibold text-red-700">Unauthorized</td>
-                  <td className="py-3 px-4 text-gray-600">Invalid or missing API key</td>
+                <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+                  <td style={{ padding: '0.75rem 1rem' }}><code style={{ backgroundColor: '#fee2e2', color: '#7f1d1d', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', fontWeight: 'bold' }}>401</code></td>
+                  <td style={{ padding: '0.75rem 1rem', fontWeight: '600', color: '#7f1d1d' }}>Unauthorized</td>
+                  <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>Invalid or missing API key</td>
                 </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="py-3 px-4"><code className="bg-orange-100 text-orange-700 px-2 py-1 rounded font-bold">429</code></td>
-                  <td className="py-3 px-4 font-semibold text-orange-700">Rate Limit Exceeded</td>
-                  <td className="py-3 px-4 text-gray-600">Monthly limit reached</td>
+                <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+                  <td style={{ padding: '0.75rem 1rem' }}><code style={{ backgroundColor: '#fed7aa', color: '#9a3412', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', fontWeight: 'bold' }}>429</code></td>
+                  <td style={{ padding: '0.75rem 1rem', fontWeight: '600', color: '#9a3412' }}>Rate Limit Exceeded</td>
+                  <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>Monthly limit reached</td>
                 </tr>
-                <tr className="hover:bg-gray-50">
-                  <td className="py-3 px-4"><code className="bg-red-100 text-red-700 px-2 py-1 rounded font-bold">500</code></td>
-                  <td className="py-3 px-4 font-semibold text-red-700">Server Error</td>
-                  <td className="py-3 px-4 text-gray-600">Internal server error</td>
+                <tr>
+                  <td style={{ padding: '0.75rem 1rem' }}><code style={{ backgroundColor: '#fee2e2', color: '#7f1d1d', padding: '0.25rem 0.5rem', borderRadius: '0.25rem', fontWeight: 'bold' }}>500</code></td>
+                  <td style={{ padding: '0.75rem 1rem', fontWeight: '600', color: '#7f1d1d' }}>Server Error</td>
+                  <td style={{ padding: '0.75rem 1rem', color: '#6b7280' }}>Internal server error</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <h4 className="text-xl font-bold mb-3">Error Response Format:</h4>
-          <div className="bg-gray-900 text-gray-100 p-5 rounded-lg">
-            <pre className="font-mono text-sm leading-relaxed">
+          <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Error Response Format:</h4>
+          <div style={{ backgroundColor: '#1f2937', color: '#e5e7eb', padding: '1.25rem', borderRadius: '0.5rem' }}>
+            <pre style={{ fontFamily: 'monospace', fontSize: '0.875rem', lineHeight: '1.5', margin: 0, whiteSpace: 'pre-wrap' }}>
               {`{
   "error": "Monthly limit exceeded",
   "current": 1000,
   "limit": 1000,
-  "message": "You've reached your plan limit of 1000 PDFs per month..."
+  "message": "You've reached your plan limit..."
 }`}
             </pre>
           </div>
         </div>
 
         {/* Rate Limits */}
-        <div id="limits" className="bg-white p-8 rounded-xl shadow-lg mb-8 border border-gray-100">
-          <div className="flex items-start gap-4 mb-6">
-            <span className="text-4xl">📊</span>
+        <div id="limits" style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', marginBottom: '2rem', border: '1px solid #e5e7eb' }}>
+          <div style={{ display: 'flex', alignItems: 'start', gap: '1rem', marginBottom: '1.5rem' }}>
+            <span style={{ fontSize: '2.5rem' }}>📊</span>
             <div>
-              <h2 className="text-3xl font-bold mb-3">Rate Limits</h2>
-              <p className="text-gray-600 text-lg mb-6">API limits are based on your subscription plan:</p>
+              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Rate Limits</h2>
+              <p style={{ color: '#6b7280', fontSize: '1.125rem', marginBottom: '1.5rem' }}>API limits are based on your subscription plan:</p>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-6">
-            <div className="border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 transition">
-              <h3 className="text-xl font-bold mb-2">Starter</h3>
-              <p className="text-3xl font-bold text-blue-600 mb-4">1,000</p>
-              <p className="text-gray-600">PDFs per month</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
+            <div style={{ border: '2px solid #e5e7eb', borderRadius: '0.75rem', padding: '1.5rem', textAlign: 'center' }}>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Starter</h3>
+              <p style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#2563eb', marginBottom: '1rem' }}>1,000</p>
+              <p style={{ color: '#6b7280' }}>PDFs per month</p>
             </div>
-            <div className="border-2 border-blue-500 rounded-xl p-6 bg-blue-50">
-              <div className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold inline-block mb-2">POPULAR</div>
-              <h3 className="text-xl font-bold mb-2">Professional</h3>
-              <p className="text-3xl font-bold text-blue-600 mb-4">10,000</p>
-              <p className="text-gray-600">PDFs per month</p>
+            <div style={{ border: '2px solid #2563eb', borderRadius: '0.75rem', padding: '1.5rem', backgroundColor: '#eff6ff', textAlign: 'center' }}>
+              <div style={{ backgroundColor: '#2563eb', color: 'white', padding: '0.25rem 0.75rem', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 'bold', display: 'inline-block', marginBottom: '0.5rem' }}>POPULAR</div>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Professional</h3>
+              <p style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#2563eb', marginBottom: '1rem' }}>10,000</p>
+              <p style={{ color: '#6b7280' }}>PDFs per month</p>
             </div>
-            <div className="border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 transition">
-              <h3 className="text-xl font-bold mb-2">Enterprise</h3>
-              <p className="text-3xl font-bold text-blue-600 mb-4">100,000</p>
-              <p className="text-gray-600">PDFs per month</p>
+            <div style={{ border: '2px solid #e5e7eb', borderRadius: '0.75rem', padding: '1.5rem', textAlign: 'center' }}>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Enterprise</h3>
+              <p style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#2563eb', marginBottom: '1rem' }}>100,000</p>
+              <p style={{ color: '#6b7280' }}>PDFs per month</p>
             </div>
           </div>
 
-          <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-lg">
-            <p className="text-amber-900 text-lg">
-              <strong>💡 Pro Tip:</strong> Monitor your usage in real-time through your <a href="/dashboard" className="text-amber-700 hover:text-amber-800 underline font-semibold">dashboard</a>. You'll be notified when you reach 90% of your monthly limit.
+          <div style={{ background: 'linear-gradient(to right, #fef3c7, #fde68a)', borderLeft: '4px solid #f59e0b', padding: '1.25rem', borderRadius: '0 0.5rem 0.5rem 0' }}>
+            <p style={{ color: '#78350f', fontSize: '1.125rem', margin: 0 }}>
+              <strong>💡 Pro Tip:</strong> Monitor your usage in real-time through your <Link href="/dashboard" style={{ color: '#92400e', textDecoration: 'underline', fontWeight: '600' }}>dashboard</Link>. You'll be notified when you reach 90% of your monthly limit.
             </p>
           </div>
         </div>
 
         {/* Support */}
-        <div id="support" className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8 rounded-xl shadow-xl">
-          <div className="flex items-start gap-4">
-            <span className="text-4xl">💬</span>
+        <div id="support" style={{ background: 'linear-gradient(to right, #2563eb, #1e40af)', color: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 10px 15px rgba(0,0,0,0.1)' }}>
+          <div style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
+            <span style={{ fontSize: '2.5rem' }}>💬</span>
             <div>
-              <h2 className="text-3xl font-bold mb-3">Need Help?</h2>
-              <p className="text-blue-100 text-lg mb-6">
+              <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>Need Help?</h2>
+              <p style={{ color: '#dbeafe', fontSize: '1.125rem', marginBottom: '1.5rem' }}>
                 Have questions or need assistance? We're here to help!
               </p>
-              <div className="flex flex-wrap gap-4">
-                <a href="mailto:support@pdfforge.io" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                <a href="mailto:support@pdfforge.io" style={{ backgroundColor: 'white', color: '#2563eb', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none' }}>
                   Email Support
                 </a>
-                <a href="/dashboard" className="bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-400 transition">
+                <Link href="/dashboard" style={{ backgroundColor: '#1e40af', color: 'white', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none' }}>
                   View Dashboard
-                </a>
+                </Link>
               </div>
             </div>
           </div>
