@@ -109,17 +109,25 @@ export default function Dashboard() {
 
     const getUsageColor = () => {
         const percentage = getUsagePercentage()
-        if (percentage >= 90) return 'bg-red-500'
-        if (percentage >= 70) return 'bg-yellow-500'
-        return 'bg-blue-500'
+        if (percentage >= 90) return '#ef4444'
+        if (percentage >= 70) return '#eab308'
+        return '#2563eb'
     }
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-4"></div>
-                    <p className="text-xl text-gray-600">Loading your dashboard...</p>
+            <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #f9fafb, white)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ textAlign: 'center' }}>
+                    <div style={{
+                        width: '64px',
+                        height: '64px',
+                        border: '4px solid #e5e7eb',
+                        borderTop: '4px solid #2563eb',
+                        borderRadius: '50%',
+                        animation: 'spin 1s linear infinite',
+                        margin: '0 auto 1rem'
+                    }}></div>
+                    <p style={{ fontSize: '1.25rem', color: '#6b7280' }}>Loading your dashboard...</p>
                 </div>
             </div>
         )
@@ -127,17 +135,17 @@ export default function Dashboard() {
 
     if (!data) {
         return (
-            <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-16">
-                <div className="container mx-auto px-4 max-w-4xl">
-                    <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 border-l-4 border-yellow-500 p-8 rounded-r-xl shadow-lg">
-                        <div className="flex items-start gap-4">
-                            <span className="text-4xl">⚠️</span>
+            <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #f9fafb, white)', padding: '4rem 1rem' }}>
+                <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+                    <div style={{ background: 'linear-gradient(to right, #fef3c7, #fde68a)', borderLeft: '4px solid #f59e0b', padding: '2rem', borderRadius: '0 0.75rem 0.75rem 0', boxShadow: '0 4px 6px rgba(0,0,0,0.07)' }}>
+                        <div style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
+                            <span style={{ fontSize: '2.5rem' }}>⚠️</span>
                             <div>
-                                <h3 className="text-2xl font-bold text-yellow-900 mb-2">API Key Required</h3>
-                                <p className="text-yellow-800 text-lg mb-4">
+                                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#78350f', marginBottom: '0.5rem' }}>API Key Required</h3>
+                                <p style={{ color: '#92400e', fontSize: '1.125rem', marginBottom: '1rem' }}>
                                     Please provide your API key to view your dashboard. You can find it after subscribing to a plan.
                                 </p>
-                                <Link href="/pricing" className="inline-block bg-yellow-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-yellow-700 transition">
+                                <Link href="/pricing" style={{ display: 'inline-block', backgroundColor: '#f59e0b', color: 'white', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none' }}>
                                     View Pricing Plans
                                 </Link>
                             </div>
@@ -149,16 +157,16 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8">
-            <div className="container mx-auto px-4 max-w-7xl">
+        <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #f9fafb, white)', padding: '2rem 1rem' }}>
+            <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
                 {/* Header */}
-                <div className="mb-8">
-                    <div className="flex items-center justify-between flex-wrap gap-4">
+                <div style={{ marginBottom: '2rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
                         <div>
-                            <h1 className="text-4xl font-bold text-gray-900 mb-2">Dashboard</h1>
-                            <p className="text-lg text-gray-600">{data.user.email}</p>
+                            <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>Dashboard</h1>
+                            <p style={{ fontSize: '1.125rem', color: '#6b7280' }}>{data.user.email}</p>
                         </div>
-                        <Link href="/docs" className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg">
+                        <Link href="/docs" style={{ backgroundColor: '#2563eb', color: 'white', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
                             📖 View Documentation
                         </Link>
                     </div>
@@ -166,31 +174,31 @@ export default function Dashboard() {
 
                 {/* Usage Warning */}
                 {getUsagePercentage() >= 90 && (
-                    <div className="bg-gradient-to-r from-red-50 to-red-100 border-l-4 border-red-500 p-6 rounded-r-xl mb-6 shadow-lg">
-                        <div className="flex items-start gap-3">
-                            <span className="text-2xl">⚠️</span>
+                    <div style={{ background: 'linear-gradient(to right, #fee2e2, #fecaca)', borderLeft: '4px solid #ef4444', padding: '1.5rem', borderRadius: '0 0.75rem 0.75rem 0', marginBottom: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)' }}>
+                        <div style={{ display: 'flex', alignItems: 'start', gap: '0.75rem' }}>
+                            <span style={{ fontSize: '1.5rem' }}>⚠️</span>
                             <div>
-                                <h3 className="text-lg font-bold text-red-900 mb-1">Usage Alert</h3>
-                                <p className="text-red-800">You've used {Math.round(getUsagePercentage())}% of your monthly limit. Consider upgrading your plan to avoid service interruption.</p>
+                                <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', color: '#7f1d1d', marginBottom: '0.25rem' }}>Usage Alert</h3>
+                                <p style={{ color: '#991b1b' }}>You've used {Math.round(getUsagePercentage())}% of your monthly limit. Consider upgrading your plan to avoid service interruption.</p>
                             </div>
                         </div>
                     </div>
                 )}
 
                 {/* API Key Section */}
-                <div className="bg-white p-8 rounded-xl shadow-lg mb-6 border border-gray-100">
-                    <div className="flex items-start gap-4 mb-4">
-                        <span className="text-4xl">🔑</span>
-                        <div className="flex-1">
-                            <h2 className="text-2xl font-bold mb-2">Your API Key</h2>
-                            <p className="text-gray-600 mb-4">Use this key to authenticate your API requests. Keep it secure and never share it publicly.</p>
+                <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', marginBottom: '1.5rem', border: '1px solid #e5e7eb' }}>
+                    <div style={{ display: 'flex', alignItems: 'start', gap: '1rem', marginBottom: '1rem' }}>
+                        <span style={{ fontSize: '2.5rem' }}>🔑</span>
+                        <div style={{ flex: 1 }}>
+                            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Your API Key</h2>
+                            <p style={{ color: '#6b7280', marginBottom: '1rem' }}>Use this key to authenticate your API requests. Keep it secure and never share it publicly.</p>
                         </div>
                     </div>
-                    <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-5 rounded-lg border-2 border-gray-200 flex items-center justify-between gap-4">
-                        <code className="font-mono text-sm flex-1 truncate text-gray-700">{data.user.apiKey}</code>
+                    <div style={{ background: 'linear-gradient(to right, #f9fafb, #f3f4f6)', padding: '1.25rem', borderRadius: '0.5rem', border: '2px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
+                        <code style={{ fontFamily: 'monospace', fontSize: '0.875rem', flex: 1, minWidth: '200px', wordBreak: 'break-all', color: '#374151' }}>{data.user.apiKey}</code>
                         <button
                             onClick={handleCopy}
-                            className={`${copied ? 'bg-green-600' : 'bg-blue-600'} text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition whitespace-nowrap shadow-md`}
+                            style={{ backgroundColor: copied ? '#10b981' : '#2563eb', color: 'white', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', fontWeight: '600', border: 'none', cursor: 'pointer', transition: 'opacity 0.2s', whiteSpace: 'nowrap', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
                         >
                             {copied ? '✓ Copied!' : '📋 Copy'}
                         </button>
@@ -198,81 +206,81 @@ export default function Dashboard() {
                 </div>
 
                 {/* Usage Stats Grid */}
-                <div className="grid md:grid-cols-3 gap-6 mb-6">
-                    <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-semibold text-gray-700">This Month</h3>
-                            <span className="text-3xl">📈</span>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                    <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', border: '1px solid #e5e7eb' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#374151' }}>This Month</h3>
+                            <span style={{ fontSize: '2rem' }}>📈</span>
                         </div>
-                        <p className="text-4xl font-bold text-blue-600 mb-2">{data.usage.current.toLocaleString()}</p>
-                        <p className="text-gray-500">PDFs generated</p>
-                        <div className="mt-4 bg-gray-200 rounded-full h-2 overflow-hidden">
-                            <div className={`h-full ${getUsageColor()} transition-all duration-300`} style={{ width: `${Math.min(getUsagePercentage(), 100)}%` }}></div>
+                        <p style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#2563eb', marginBottom: '0.5rem' }}>{data.usage.current.toLocaleString()}</p>
+                        <p style={{ color: '#6b7280' }}>PDFs generated</p>
+                        <div style={{ marginTop: '1rem', backgroundColor: '#e5e7eb', borderRadius: '9999px', height: '8px', overflow: 'hidden' }}>
+                            <div style={{ backgroundColor: getUsageColor(), height: '100%', width: `${Math.min(getUsagePercentage(), 100)}%`, transition: 'width 0.3s' }}></div>
                         </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-semibold text-gray-700">Plan Limit</h3>
-                            <span className="text-3xl">🎯</span>
+                    <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', border: '1px solid #e5e7eb' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#374151' }}>Plan Limit</h3>
+                            <span style={{ fontSize: '2rem' }}>🎯</span>
                         </div>
-                        <p className="text-4xl font-bold text-gray-900 mb-2">{data.usage.limit.toLocaleString()}</p>
-                        <p className="text-gray-500">PDFs per month</p>
+                        <p style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>{data.usage.limit.toLocaleString()}</p>
+                        <p style={{ color: '#6b7280' }}>PDFs per month</p>
                     </div>
 
-                    <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-lg font-semibold text-gray-700">Remaining</h3>
-                            <span className="text-3xl">✨</span>
+                    <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', border: '1px solid #e5e7eb' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                            <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#374151' }}>Remaining</h3>
+                            <span style={{ fontSize: '2rem' }}>✨</span>
                         </div>
-                        <p className="text-4xl font-bold text-green-600 mb-2">{data.usage.remaining.toLocaleString()}</p>
-                        <p className="text-gray-500">PDFs available</p>
+                        <p style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#10b981', marginBottom: '0.5rem' }}>{data.usage.remaining.toLocaleString()}</p>
+                        <p style={{ color: '#6b7280' }}>PDFs available</p>
                     </div>
                 </div>
 
                 {/* Current Plan */}
-                <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8 rounded-xl shadow-xl mb-6">
-                    <div className="flex items-center justify-between flex-wrap gap-4">
+                <div style={{ background: 'linear-gradient(to right, #2563eb, #1e40af)', color: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 10px 15px rgba(0,0,0,0.1)', marginBottom: '1.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
                         <div>
-                            <p className="text-blue-200 text-sm font-semibold mb-1">CURRENT PLAN</p>
-                            <h2 className="text-3xl font-bold mb-2">{getPlanName(data.user.plan)} Plan</h2>
-                            <p className="text-xl text-blue-100">
-                                {getPlanPrice(data.user.plan)}<span className="text-sm">/month</span> • {data.usage.limit.toLocaleString()} PDFs
+                            <p style={{ color: '#bfdbfe', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.25rem' }}>CURRENT PLAN</p>
+                            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{getPlanName(data.user.plan)} Plan</h2>
+                            <p style={{ fontSize: '1.25rem', color: '#dbeafe' }}>
+                                {getPlanPrice(data.user.plan)}<span style={{ fontSize: '0.875rem' }}>/month</span> • {data.usage.limit.toLocaleString()} PDFs
                             </p>
                         </div>
-                        <Link href="/pricing" className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold hover:bg-blue-50 transition shadow-lg">
+                        <Link href="/pricing" style={{ backgroundColor: 'white', color: '#2563eb', padding: '1rem 2rem', borderRadius: '0.5rem', fontWeight: 'bold', textDecoration: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
                             🚀 Upgrade Plan
                         </Link>
                     </div>
                 </div>
 
                 {/* Recent Activity */}
-                <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="text-4xl">📊</span>
-                        <h2 className="text-2xl font-bold">Recent Activity</h2>
+                <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '0.75rem', boxShadow: '0 4px 6px rgba(0,0,0,0.07)', border: '1px solid #e5e7eb' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                        <span style={{ fontSize: '2rem' }}>📊</span>
+                        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Recent Activity</h2>
                     </div>
                     {data.recentActivity.length === 0 ? (
-                        <div className="text-center py-12">
-                            <span className="text-6xl mb-4 block">🚀</span>
-                            <p className="text-xl text-gray-600 mb-2">No activity yet</p>
-                            <p className="text-gray-500 mb-6">Start using your API key to generate PDFs!</p>
-                            <Link href="/docs" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                        <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
+                            <span style={{ fontSize: '4rem', display: 'block', marginBottom: '1rem' }}>🚀</span>
+                            <p style={{ fontSize: '1.25rem', color: '#6b7280', marginBottom: '0.5rem' }}>No activity yet</p>
+                            <p style={{ color: '#9ca3af', marginBottom: '1.5rem' }}>Start using your API key to generate PDFs!</p>
+                            <Link href="/docs" style={{ display: 'inline-block', backgroundColor: '#2563eb', color: 'white', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none' }}>
                                 View API Documentation
                             </Link>
                         </div>
                     ) : (
-                        <div className="space-y-3">
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                             {data.recentActivity.map((activity, index) => (
-                                <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition border border-gray-200">
-                                    <div className="flex items-center gap-4">
-                                        <span className="text-2xl">{activity.status === 'success' ? '✅' : '❌'}</span>
+                                <div key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', backgroundColor: '#f9fafb', borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                        <span style={{ fontSize: '1.5rem' }}>{activity.status === 'success' ? '✅' : '❌'}</span>
                                         <div>
-                                            <p className="font-semibold text-gray-900">{activity.endpoint}</p>
-                                            <p className="text-sm text-gray-500">{formatDate(activity.created_at)}</p>
+                                            <p style={{ fontWeight: '600', color: '#111827', marginBottom: '0.25rem' }}>{activity.endpoint}</p>
+                                            <p style={{ fontSize: '0.875rem', color: '#6b7280' }}>{formatDate(activity.created_at)}</p>
                                         </div>
                                     </div>
-                                    <span className={`px-4 py-2 rounded-full text-sm font-bold ${activity.status === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                                    <span style={{ padding: '0.5rem 1rem', borderRadius: '9999px', fontSize: '0.875rem', fontWeight: 'bold', backgroundColor: activity.status === 'success' ? '#d1fae5' : '#fee2e2', color: activity.status === 'success' ? '#065f46' : '#7f1d1d' }}>
                                         {activity.status === 'success' ? 'Success' : 'Failed'}
                                     </span>
                                 </div>
