@@ -26,6 +26,39 @@ export async function POST(request: NextRequest) {
         userId = authResult.userId
         apiKey = request.headers.get('authorization')?.replace('Bearer ', '')
 
+        // Check usage limits
+        const startOfMonth = new Date()
+        startOfMonth.setDate(1)
+        startOfMonth.setHours(0, 0, 0, 0)
+
+        const { count: usageCount } = await supabase
+            .from('api_usage')
+            .select('*', { count: 'exact', head: true })
+            .eq('user_id', userId)
+            .gte('created_at', startOfMonth.toISOString())
+
+        // Plan limits
+        const planLimits: Record<string, number> = {
+            starter: 1000,
+            professional: 10000,
+            enterprise: 100000
+        }
+
+        const userPlan = authResult.plan || 'starter'
+        const planLimit = planLimits[userPlan] || 1000
+
+        if ((usageCount || 0) >= planLimit) {
+            return NextResponse.json(
+                {
+                    error: 'Monthly limit exceeded',
+                    current: usageCount,
+                    limit: planLimit,
+                    message: `You've reached your plan limit of ${planLimit} PDFs per month. Please upgrade your plan.`
+                },
+                { status: 429 }
+            )
+        }
+
         const { html, url, options } = await request.json()
 
         if (!html && !url) {

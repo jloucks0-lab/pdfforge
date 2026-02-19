@@ -1,13 +1,12 @@
-import { createClient } from '@supabase/supabase-js'
 import { NextRequest } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY! // Use service role key for server-side
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
 export async function validateApiKey(request: NextRequest) {
-    // Get API key from Authorization header
     const authHeader = request.headers.get('authorization')
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -20,54 +19,55 @@ export async function validateApiKey(request: NextRequest) {
 
     const apiKey = authHeader.replace('Bearer ', '')
 
-    // Check if API key exists and is active
-    const { data: keyData, error } = await supabase
-        .from('api_keys')
-        .select('id, user_id, is_active')
-        .eq('key', apiKey)
-        .single()
+    try {
+        // Verify API key exists and is active
+        const { data: keyData, error: keyError } = await supabase
+            .from('api_keys')
+            .select('user_id, is_active')
+            .eq('key', apiKey)
+            .single()
 
-    if (error || !keyData) {
+        if (keyError || !keyData || !keyData.is_active) {
+            return {
+                valid: false,
+                error: 'Invalid or inactive API key',
+                status: 401
+            }
+        }
+
+        // Update last_used_at
+        await supabase
+            .from('api_keys')
+            .update({ last_used_at: new Date().toISOString() })
+            .eq('key', apiKey)
+
+        // Check if user has active subscription
+        const { data: subscription, error: subError } = await supabase
+            .from('subscriptions')
+            .select('plan, status')
+            .eq('user_id', keyData.user_id)
+            .eq('status', 'active')
+            .single()
+
+        if (subError || !subscription) {
+            return {
+                valid: false,
+                error: 'No active subscription found',
+                status: 403
+            }
+        }
+
+        return {
+            valid: true,
+            userId: keyData.user_id,
+            plan: subscription.plan
+        }
+    } catch (error) {
+        console.error('API key validation error:', error)
         return {
             valid: false,
-            error: 'Invalid API key',
-            status: 401
+            error: 'Internal server error',
+            status: 500
         }
-    }
-
-    if (!keyData.is_active) {
-        return {
-            valid: false,
-            error: 'API key is disabled',
-            status: 403
-        }
-    }
-
-    // Update last_used_at timestamp
-    await supabase
-        .from('api_keys')
-        .update({ last_used_at: new Date().toISOString() })
-        .eq('id', keyData.id)
-
-    // Check if user has an active subscription
-    const { data: subscription } = await supabase
-        .from('subscriptions')
-        .select('status, plan')
-        .eq('user_id', keyData.user_id)
-        .eq('status', 'active')
-        .single()
-
-    if (!subscription) {
-        return {
-            valid: false,
-            error: 'No active subscription found',
-            status: 403
-        }
-    }
-
-    return {
-        valid: true,
-        userId: keyData.user_id,
-        plan: subscription.plan
     }
 }
