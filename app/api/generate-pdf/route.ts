@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import puppeteer from 'puppeteer'
 import { validateApiKey } from '@/lib/auth'
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
 
 export async function POST(request: NextRequest) {
+    let userId: string | undefined
+    let apiKey: string | undefined
+
     try {
         // Validate API key
         const authResult = await validateApiKey(request)
@@ -13,6 +22,9 @@ export async function POST(request: NextRequest) {
                 { status: authResult.status }
             )
         }
+
+        userId = authResult.userId
+        apiKey = request.headers.get('authorization')?.replace('Bearer ', '')
 
         const { html, url, options } = await request.json()
 
@@ -45,6 +57,18 @@ export async function POST(request: NextRequest) {
 
         await browser.close()
 
+        // Log successful usage
+        if (userId && apiKey) {
+            await supabase
+                .from('api_usage')
+                .insert({
+                    user_id: userId,
+                    api_key: apiKey,
+                    endpoint: '/api/generate-pdf',
+                    status: 'success'
+                })
+        }
+
         return new NextResponse(Buffer.from(pdf), {
             headers: {
                 'Content-Type': 'application/pdf',
@@ -53,6 +77,19 @@ export async function POST(request: NextRequest) {
         })
     } catch (error) {
         console.error('PDF generation error:', error)
+
+        // Log failed usage
+        if (userId && apiKey) {
+            await supabase
+                .from('api_usage')
+                .insert({
+                    user_id: userId,
+                    api_key: apiKey,
+                    endpoint: '/api/generate-pdf',
+                    status: 'error'
+                })
+        }
+
         return NextResponse.json(
             { error: 'Failed to generate PDF' },
             { status: 500 }
