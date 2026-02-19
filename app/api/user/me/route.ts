@@ -61,6 +61,13 @@ export async function GET(request: NextRequest) {
             .order('created_at', { ascending: false })
             .limit(10)
 
+        // Format activity with readable status
+        const formattedActivity = recentActivity?.map(activity => ({
+            endpoint: activity.endpoint,
+            status: activity.status === 200 ? 'success' : 'error',
+            created_at: activity.created_at
+        })) || []
+
         // Plan limits
         const planLimits = {
             starter: 1000,
@@ -81,7 +88,7 @@ export async function GET(request: NextRequest) {
                 limit: planLimit,
                 remaining: planLimit - (usageCount || 0)
             },
-            recentActivity: recentActivity || []
+            recentActivity: formattedActivity
         })
     } catch (error: any) {
         console.error('User data fetch error:', error)

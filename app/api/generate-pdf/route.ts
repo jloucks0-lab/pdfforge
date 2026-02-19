@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
 
         await browser.close()
 
-        // Log successful usage
+        // Log successful usage (status: 200 = success)
         if (userId && apiKey) {
             await supabase
                 .from('api_usage')
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
                     user_id: userId,
                     api_key: apiKey,
                     endpoint: '/api/generate-pdf',
-                    status: 'success'
+                    status: 200
                 })
         }
 
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
     } catch (error) {
         console.error('PDF generation error:', error)
 
-        // Log failed usage
+        // Log failed usage (status: 500 = error)
         if (userId && apiKey) {
             await supabase
                 .from('api_usage')
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
                     user_id: userId,
                     api_key: apiKey,
                     endpoint: '/api/generate-pdf',
-                    status: 'error'
+                    status: 500
                 })
         }
 
