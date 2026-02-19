@@ -1,0 +1,7 @@
+{
+  "url": "https://example.com",
+  "options": {
+    "format": "A4",
+    "printBackground": true
+  }
+}

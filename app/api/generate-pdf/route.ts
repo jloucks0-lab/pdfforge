@@ -3,6 +3,7 @@ import puppeteer from 'puppeteer'
 import { validateApiKey } from '@/lib/auth'
 import { createClient } from '@supabase/supabase-js'
 import { sendUsageWarningEmail } from '@/lib/email'
+import { checkRateLimit } from '@/lib/rate-limiter'
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -26,6 +27,28 @@ export async function POST(request: NextRequest) {
 
         userId = authResult.userId
         apiKey = request.headers.get('authorization')?.replace('Bearer ', '')
+
+        // Check per-minute rate limit
+        const rateLimit = checkRateLimit(userId, authResult.plan || 'starter')
+
+        if (!rateLimit.allowed) {
+            return NextResponse.json(
+                {
+                    error: 'Rate limit exceeded',
+                    limit: rateLimit.limit,
+                    resetIn: rateLimit.resetIn,
+                    message: `Too many requests. Limit: ${rateLimit.limit} requests per minute. Try again in ${rateLimit.resetIn} seconds.`
+                },
+                {
+                    status: 429,
+                    headers: {
+                        'X-RateLimit-Limit': rateLimit.limit.toString(),
+                        'X-RateLimit-Remaining': '0',
+                        'X-RateLimit-Reset': rateLimit.resetIn.toString()
+                    }
+                }
+            )
+        }
 
         // Check usage limits
         const startOfMonth = new Date()
