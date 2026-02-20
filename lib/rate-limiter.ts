@@ -61,9 +61,9 @@ export function checkRateLimit(userId: string, plan: string): { allowed: boolean
 // Cleanup old entries every 5 minutes
 setInterval(() => {
     const now = Date.now()
-    for (const [key, entry] of rateLimits.entries()) {
+    rateLimits.forEach((entry, key) => {
         if (now > entry.resetTime + 300000) { // 5 minutes past reset
             rateLimits.delete(key)
         }
-    }
+    })
 }, 300000)
