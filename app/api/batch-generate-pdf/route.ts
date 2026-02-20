@@ -26,8 +26,6 @@ const PLAN_LIMITS = {
 
 export async function POST(request: NextRequest) {
     const startTime = Date.now()
-    let userId: string | undefined
-    let apiKey: string | undefined
 
     try {
         // Validate API key
@@ -37,8 +35,12 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: authResult.error || 'Invalid API key' }, { status: authResult.status || 401 })
         }
 
-        userId = authResult.userId!
-        apiKey = request.headers.get('authorization')?.replace('Bearer ', '') || ''
+        if (!authResult.userId) {
+            return NextResponse.json({ error: 'User ID not found' }, { status: 401 })
+        }
+
+        const userId = authResult.userId
+        const apiKey = request.headers.get('authorization')?.replace('Bearer ', '') || ''
 
         // Check rate limit
         const rateLimit = checkRateLimit(userId, authResult.plan || 'starter')
@@ -241,20 +243,6 @@ export async function POST(request: NextRequest) {
 
     } catch (error: any) {
         console.error('Batch PDF generation error:', error)
-
-        if (userId && apiKey) {
-            await logRequest({
-                userId,
-                apiKey,
-                endpoint: '/api/batch-generate-pdf',
-                method: 'POST',
-                statusCode: 500,
-                responseTimeMs: Date.now() - startTime,
-                errorMessage: error.message,
-                ipAddress: request.headers.get('x-forwarded-for') || undefined,
-                userAgent: request.headers.get('user-agent') || undefined
-            })
-        }
 
         return NextResponse.json(
             { error: 'Failed to generate PDFs', message: error.message },
