@@ -33,8 +33,8 @@ export async function POST(request: NextRequest) {
         userId = authResult.userId
         apiKey = request.headers.get('authorization')?.replace('Bearer ', '') || ''
 
-        const validUserId = userId // This is guaranteed to be string
-        const validApiKey = apiKey // This is guaranteed to be string
+        const validUserId: string = authResult.userId! // Non-null assertion - we checked above
+        const validApiKey: string = apiKey
 
         // Check per-minute rate limit
         const rateLimit = checkRateLimit(validUserId, authResult.plan || 'starter')
