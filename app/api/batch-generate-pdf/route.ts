@@ -231,7 +231,7 @@ export async function POST(request: NextRequest) {
         const successCount = results.filter(r => r.success).length
         const failureCount = results.filter(r => !r.success).length
 
-        return new NextResponse(zipBuffer, {
+        return new NextResponse(new Uint8Array(zipBuffer), {
             headers: {
                 'Content-Type': 'application/zip',
                 'Content-Disposition': 'attachment; filename="pdfs.zip"',
