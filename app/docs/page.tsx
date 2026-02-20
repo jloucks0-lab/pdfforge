@@ -213,14 +213,15 @@ app.post('/webhooks/pdfforge', (req, res) => {
       {/* Header */}
       <div style={{ backgroundColor: 'white', borderBottom: '1px solid #e5e7eb', padding: '1.5rem 0', position: 'sticky', top: 0, zIndex: 50, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-          <Link href="/" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#2563eb', textDecoration: 'none' }}>
-            PdfForge API
+          <Link href="/" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', textDecoration: 'none' }}>
+            PdfForge
           </Link>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <Link href="/pricing" style={{ color: '#374151', textDecoration: 'none', fontWeight: '500' }}>Pricing</Link>
-            <Link href="/dashboard" style={{ backgroundColor: '#2563eb', color: 'white', padding: '0.5rem 1.5rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none' }}>
-              Dashboard
+            <Link href="/docs" style={{ backgroundColor: '#2563eb', color: 'white', padding: '0.5rem 1.5rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none' }}>
+              Docs
             </Link>
+            <Link href="/dashboard" style={{ color: '#374151', textDecoration: 'none', fontWeight: '500' }}>Dashboard</Link>
           </div>
         </div>
       </div>
