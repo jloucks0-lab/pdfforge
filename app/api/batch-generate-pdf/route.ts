@@ -37,8 +37,8 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: authResult.error || 'Invalid API key' }, { status: authResult.status || 401 })
         }
 
-        const userId = authResult.userId!
-        const apiKey = request.headers.get('authorization')?.replace('Bearer ', '')
+        userId = authResult.userId!
+        apiKey = request.headers.get('authorization')?.replace('Bearer ', '') || ''
 
         // Check rate limit
         const rateLimit = checkRateLimit(userId, authResult.plan || 'starter')
