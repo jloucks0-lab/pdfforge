@@ -11,9 +11,6 @@ const supabase = createClient(
 )
 
 export async function POST(request: NextRequest) {
-    let userId: string | undefined
-    let apiKey: string | undefined
-
     try {
         // Validate API key
         const authResult = await validateApiKey(request)
@@ -29,8 +26,8 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'User ID not found' }, { status: 401 })
         }
 
-        userId = authResult.userId
-        apiKey = request.headers.get('authorization')?.replace('Bearer ', '')
+        const userId = authResult.userId
+        const apiKey = request.headers.get('authorization')?.replace('Bearer ', '') || ''
 
         // Check per-minute rate limit
         const rateLimit = checkRateLimit(userId, authResult.plan || 'starter')
