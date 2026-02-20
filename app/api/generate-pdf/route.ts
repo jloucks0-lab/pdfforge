@@ -25,6 +25,10 @@ export async function POST(request: NextRequest) {
             )
         }
 
+        if (!authResult.userId) {
+            return NextResponse.json({ error: 'User ID not found' }, { status: 401 })
+        }
+
         userId = authResult.userId
         apiKey = request.headers.get('authorization')?.replace('Bearer ', '')
 
