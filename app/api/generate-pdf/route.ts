@@ -11,6 +11,9 @@ const supabase = createClient(
 )
 
 export async function POST(request: NextRequest) {
+    let userId: string | undefined
+    let apiKey: string | undefined
+
     try {
         // Validate API key
         const authResult = await validateApiKey(request)
@@ -26,11 +29,15 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'User ID not found' }, { status: 401 })
         }
 
-        const userId = authResult.userId
-        const apiKey = request.headers.get('authorization')?.replace('Bearer ', '') || ''
+        // Assign to outer variables and create const for use in this scope
+        userId = authResult.userId
+        apiKey = request.headers.get('authorization')?.replace('Bearer ', '') || ''
+
+        const validUserId = userId // This is guaranteed to be string
+        const validApiKey = apiKey // This is guaranteed to be string
 
         // Check per-minute rate limit
-        const rateLimit = checkRateLimit(userId, authResult.plan || 'starter')
+        const rateLimit = checkRateLimit(validUserId, authResult.plan || 'starter')
 
         if (!rateLimit.allowed) {
             return NextResponse.json(
@@ -59,7 +66,7 @@ export async function POST(request: NextRequest) {
         const { count: usageCount } = await supabase
             .from('api_usage')
             .select('*', { count: 'exact', head: true })
-            .eq('user_id', userId)
+            .eq('user_id', validUserId)
             .gte('created_at', startOfMonth.toISOString())
 
         // Plan limits
@@ -116,36 +123,34 @@ export async function POST(request: NextRequest) {
         await browser.close()
 
         // Log successful usage (status: 200 = success)
-        if (userId && apiKey) {
-            await supabase
-                .from('api_usage')
-                .insert({
-                    user_id: userId,
-                    api_key: apiKey,
-                    endpoint: '/api/generate-pdf',
-                    status: 200
+        await supabase
+            .from('api_usage')
+            .insert({
+                user_id: validUserId,
+                api_key: validApiKey,
+                endpoint: '/api/generate-pdf',
+                status: 200
+            })
+
+        // Check if user hit 90% threshold and send warning
+        const newUsageCount = (usageCount || 0) + 1
+        const percentage = Math.round((newUsageCount / planLimit) * 100)
+
+        if (percentage === 90 || percentage === 95) {
+            // Get user email
+            const { data: user } = await supabase
+                .from('users')
+                .select('email')
+                .eq('id', validUserId)
+                .single()
+
+            if (user?.email) {
+                await sendUsageWarningEmail({
+                    email: user.email,
+                    current: newUsageCount,
+                    limit: planLimit,
+                    percentage
                 })
-
-            // Check if user hit 90% threshold and send warning
-            const newUsageCount = (usageCount || 0) + 1
-            const percentage = Math.round((newUsageCount / planLimit) * 100)
-
-            if (percentage === 90 || percentage === 95) {
-                // Get user email
-                const { data: user } = await supabase
-                    .from('users')
-                    .select('email')
-                    .eq('id', userId)
-                    .single()
-
-                if (user?.email) {
-                    await sendUsageWarningEmail({
-                        email: user.email,
-                        current: newUsageCount,
-                        limit: planLimit,
-                        percentage
-                    })
-                }
             }
         }
 
