@@ -284,6 +284,37 @@ export default function Dashboard() {
         return limits[plan] || 10
     }
 
+    const getApiKeyLimit = (plan: string) => {
+        const limits: Record<string, number> = {
+            starter: 1,
+            professional: 5,
+            enterprise: 10
+        }
+        return limits[plan] || 1
+    }
+
+    const getBatchLimit = (plan: string) => {
+        const limits: Record<string, number> = {
+            starter: 10,
+            professional: 50,
+            enterprise: 100
+        }
+        return limits[plan] || 10
+    }
+
+    const getLogRetentionDays = (plan: string) => {
+        const days: Record<string, number> = {
+            starter: 7,
+            professional: 30,
+            enterprise: 90
+        }
+        return days[plan] || 7
+    }
+
+    const webhooksAvailable = (plan: string) => {
+        return plan === 'professional' || plan === 'enterprise'
+    }
+
     const getUsagePercentage = () => {
         if (!data) return 0
         return (data.usage.current / data.usage.limit) * 100
@@ -466,9 +497,17 @@ export default function Dashboard() {
                                 <div>
                                     <p style={{ color: '#bfdbfe', fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.25rem' }}>CURRENT PLAN</p>
                                     <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{getPlanName(data.user.plan)} Plan</h2>
-                                    <p style={{ fontSize: '1.25rem', color: '#dbeafe' }}>
-                                        {getPlanPrice(data.user.plan)}<span style={{ fontSize: '0.875rem' }}>/month</span> • {data.usage.limit.toLocaleString()} PDFs • {getRateLimit(data.user.plan)} req/min
+                                    <p style={{ fontSize: '1.25rem', color: '#dbeafe', marginBottom: '1rem' }}>
+                                        {getPlanPrice(data.user.plan)}<span style={{ fontSize: '0.875rem' }}>/month</span>
                                     </p>
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', fontSize: '0.875rem', color: '#dbeafe' }}>
+                                        <div>📄 {data.usage.limit.toLocaleString()} PDFs/mo</div>
+                                        <div>⚡ {getRateLimit(data.user.plan)} req/min</div>
+                                        <div>🔑 {getApiKeyLimit(data.user.plan)} API {getApiKeyLimit(data.user.plan) === 1 ? 'key' : 'keys'}</div>
+                                        <div>📦 {getBatchLimit(data.user.plan)} batch max</div>
+                                        <div>📝 {getLogRetentionDays(data.user.plan)}d logs</div>
+                                        <div>{webhooksAvailable(data.user.plan) ? '✅ Webhooks' : '🔒 No webhooks'}</div>
+                                    </div>
                                 </div>
                                 <Link href="/pricing" style={{ backgroundColor: 'white', color: '#2563eb', padding: '1rem 2rem', borderRadius: '0.5rem', fontWeight: 'bold', textDecoration: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
                                     🚀 Upgrade Plan
@@ -520,14 +559,37 @@ export default function Dashboard() {
                             <div>
                                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>API Key Management</h2>
                                 <p style={{ color: '#6b7280' }}>Create and manage multiple API keys for different environments</p>
+                                <p style={{ fontSize: '0.875rem', color: '#2563eb', fontWeight: '600', marginTop: '0.5rem' }}>
+                                    Your plan allows {getApiKeyLimit(data?.user.plan || 'starter')} API {getApiKeyLimit(data?.user.plan || 'starter') === 1 ? 'key' : 'keys'}
+                                </p>
                             </div>
                             <button
                                 onClick={() => setShowCreateKey(true)}
-                                style={{ backgroundColor: '#2563eb', color: 'white', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', fontWeight: '600', border: 'none', cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
+                                disabled={apiKeys.length >= getApiKeyLimit(data?.user.plan || 'starter')}
+                                style={{
+                                    backgroundColor: apiKeys.length >= getApiKeyLimit(data?.user.plan || 'starter') ? '#9ca3af' : '#2563eb',
+                                    color: 'white',
+                                    padding: '0.75rem 1.5rem',
+                                    borderRadius: '0.5rem',
+                                    fontWeight: '600',
+                                    border: 'none',
+                                    cursor: apiKeys.length >= getApiKeyLimit(data?.user.plan || 'starter') ? 'not-allowed' : 'pointer',
+                                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                                }}
                             >
                                 ➕ Create New Key
                             </button>
                         </div>
+
+                        {/* Plan limit warning */}
+                        {apiKeys.length >= getApiKeyLimit(data?.user.plan || 'starter') && (
+                            <div style={{ backgroundColor: '#fef3c7', border: '2px solid #f59e0b', padding: '1rem', borderRadius: '0.75rem', marginBottom: '2rem' }}>
+                                <p style={{ color: '#92400e', fontWeight: '600' }}>
+                                    ⚠️ You've reached your plan's API key limit ({getApiKeyLimit(data?.user.plan || 'starter')} {getApiKeyLimit(data?.user.plan || 'starter') === 1 ? 'key' : 'keys'}).{' '}
+                                    <Link href="/pricing" style={{ color: '#2563eb', textDecoration: 'underline' }}>Upgrade your plan</Link> to create more keys.
+                                </p>
+                            </div>
+                        )}
 
                         {/* Create Key Modal */}
                         {showCreateKey && (
@@ -638,6 +700,9 @@ export default function Dashboard() {
                             <div>
                                 <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Request Logs</h2>
                                 <p style={{ color: '#6b7280' }}>View detailed logs of all API requests</p>
+                                <p style={{ fontSize: '0.875rem', color: '#2563eb', fontWeight: '600', marginTop: '0.5rem' }}>
+                                    Showing last {getLogRetentionDays(data?.user.plan || 'starter')} days of activity
+                                </p>
                             </div>
                             <div style={{ display: 'flex', gap: '0.5rem' }}>
                                 {(['all', 'success', 'error'] as const).map(filter => (
@@ -729,7 +794,18 @@ export default function Dashboard() {
                             <p style={{ color: '#6b7280' }}>Receive real-time notifications for PDF generation events</p>
                         </div>
 
-                        {loadingWebhook ? (
+                        {!webhooksAvailable(data?.user.plan || 'starter') ? (
+                            <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
+                                <span style={{ fontSize: '4rem', display: 'block', marginBottom: '1rem' }}>🔒</span>
+                                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', marginBottom: '0.5rem' }}>Webhooks Not Available</h3>
+                                <p style={{ fontSize: '1.125rem', color: '#6b7280', marginBottom: '2rem' }}>
+                                    Webhooks are available on Professional and Enterprise plans
+                                </p>
+                                <Link href="/pricing" style={{ display: 'inline-block', backgroundColor: '#2563eb', color: 'white', padding: '1rem 2rem', borderRadius: '0.5rem', fontWeight: 'bold', textDecoration: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+                                    🚀 Upgrade to Professional
+                                </Link>
+                            </div>
+                        ) : loadingWebhook ? (
                             <div style={{ textAlign: 'center', padding: '3rem' }}>
                                 <p style={{ color: '#6b7280' }}>Loading webhook configuration...</p>
                             </div>

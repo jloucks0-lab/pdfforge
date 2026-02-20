@@ -20,10 +20,22 @@ export async function GET(request: NextRequest) {
         const offset = parseInt(searchParams.get('offset') || '0')
         const status = searchParams.get('status') // 'success', 'error', or null for all
 
+        // Plan-based log retention
+        const logRetentionDays: Record<string, number> = {
+            starter: 7,
+            professional: 30,
+            enterprise: 90
+        }
+
+        const retentionDays = logRetentionDays[authResult.plan || 'starter'] || 7
+        const cutoffDate = new Date()
+        cutoffDate.setDate(cutoffDate.getDate() - retentionDays)
+
         let query = supabase
             .from('request_logs')
             .select('*', { count: 'exact' })
             .eq('user_id', authResult.userId)
+            .gte('created_at', cutoffDate.toISOString())
             .order('created_at', { ascending: false })
             .range(offset, offset + limit - 1)
 

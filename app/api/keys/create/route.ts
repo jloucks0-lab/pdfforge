@@ -22,14 +22,27 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'API key name is required' }, { status: 400 })
         }
 
-        // Check if user already has 10 keys (limit)
+        // Plan-based API key limits
+        const keyLimits: Record<string, number> = {
+            starter: 1,
+            professional: 5,
+            enterprise: 10
+        }
+
+        const maxKeys = keyLimits[authResult.plan || 'starter'] || 1
+
+        // Check if user already has max keys for their plan
         const { count } = await supabase
             .from('api_keys')
             .select('*', { count: 'exact', head: true })
             .eq('user_id', authResult.userId)
 
-        if (count && count >= 10) {
-            return NextResponse.json({ error: 'Maximum of 10 API keys allowed per account' }, { status: 400 })
+        if (count && count >= maxKeys) {
+            return NextResponse.json({
+                error: `Maximum API keys reached for your plan (${maxKeys} ${maxKeys === 1 ? 'key' : 'keys'})`,
+                limit: maxKeys,
+                current: count
+            }, { status: 400 })
         }
 
         // Generate new API key

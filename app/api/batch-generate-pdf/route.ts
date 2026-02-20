@@ -80,8 +80,22 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'batch array is required and must not be empty' }, { status: 400 })
         }
 
-        if (batch.length > 100) {
-            return NextResponse.json({ error: 'Maximum 100 PDFs per batch request' }, { status: 400 })
+        // Plan-based batch limits
+        const batchLimits: Record<string, number> = {
+            starter: 10,
+            professional: 50,
+            enterprise: 100
+        }
+
+        const maxBatch = batchLimits[authResult.plan || 'starter'] || 10
+
+        if (batch.length > maxBatch) {
+            return NextResponse.json({
+                error: `Batch size exceeds plan limit`,
+                message: `Your ${authResult.plan || 'starter'} plan allows up to ${maxBatch} PDFs per batch request. You requested ${batch.length}.`,
+                limit: maxBatch,
+                requested: batch.length
+            }, { status: 400 })
         }
 
         // Check monthly usage limit

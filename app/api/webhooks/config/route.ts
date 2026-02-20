@@ -41,6 +41,15 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: authResult.error || 'Invalid API key' }, { status: authResult.status || 401 })
         }
 
+        // Check if plan supports webhooks (Professional and Enterprise only)
+        const plan = authResult.plan || 'starter'
+        if (plan === 'starter') {
+            return NextResponse.json({
+                error: 'Webhooks are not available on the Starter plan',
+                message: 'Please upgrade to Professional or Enterprise to use webhooks'
+            }, { status: 403 })
+        }
+
         const { webhook_url, webhook_enabled } = await request.json()
 
         // Validate webhook URL
