@@ -10,16 +10,10 @@ const supabase = createClient(
 
 export async function GET(request: NextRequest) {
     try {
-        const authHeader = request.headers.get('authorization')
-        if (!authHeader) {
-            return NextResponse.json({ error: 'Missing authorization header' }, { status: 401 })
-        }
-
-        const apiKey = authHeader.replace('Bearer ', '')
-        const authResult = await validateApiKey(apiKey)
+        const authResult = await validateApiKey(request)
 
         if (!authResult.valid) {
-            return NextResponse.json({ error: 'Invalid API key' }, { status: 401 })
+            return NextResponse.json({ error: authResult.error || 'Invalid API key' }, { status: authResult.status || 401 })
         }
 
         const { data: user } = await supabase
@@ -41,16 +35,10 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
     try {
-        const authHeader = request.headers.get('authorization')
-        if (!authHeader) {
-            return NextResponse.json({ error: 'Missing authorization header' }, { status: 401 })
-        }
-
-        const apiKey = authHeader.replace('Bearer ', '')
-        const authResult = await validateApiKey(apiKey)
+        const authResult = await validateApiKey(request)
 
         if (!authResult.valid) {
-            return NextResponse.json({ error: 'Invalid API key' }, { status: 401 })
+            return NextResponse.json({ error: authResult.error || 'Invalid API key' }, { status: authResult.status || 401 })
         }
 
         const { webhook_url, webhook_enabled } = await request.json()
@@ -106,16 +94,10 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
     try {
-        const authHeader = request.headers.get('authorization')
-        if (!authHeader) {
-            return NextResponse.json({ error: 'Missing authorization header' }, { status: 401 })
-        }
-
-        const apiKey = authHeader.replace('Bearer ', '')
-        const authResult = await validateApiKey(apiKey)
+        const authResult = await validateApiKey(request)
 
         if (!authResult.valid) {
-            return NextResponse.json({ error: 'Invalid API key' }, { status: 401 })
+            return NextResponse.json({ error: authResult.error || 'Invalid API key' }, { status: authResult.status || 401 })
         }
 
         const { error } = await supabase

@@ -31,19 +31,14 @@ export async function POST(request: NextRequest) {
 
     try {
         // Validate API key
-        const authHeader = request.headers.get('authorization')
-        if (!authHeader) {
-            return NextResponse.json({ error: 'Missing authorization header' }, { status: 401 })
-        }
-
-        apiKey = authHeader.replace('Bearer ', '')
-        const authResult = await validateApiKey(apiKey)
+        const authResult = await validateApiKey(request)
 
         if (!authResult.valid) {
-            return NextResponse.json({ error: 'Invalid API key' }, { status: 401 })
+            return NextResponse.json({ error: authResult.error || 'Invalid API key' }, { status: authResult.status || 401 })
         }
 
-        userId = authResult.userId
+        const userId = authResult.userId!
+        const apiKey = request.headers.get('authorization')?.replace('Bearer ', '')
 
         // Check rate limit
         const rateLimit = checkRateLimit(userId, authResult.plan || 'starter')

@@ -12,16 +12,10 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const authHeader = request.headers.get('authorization')
-        if (!authHeader) {
-            return NextResponse.json({ error: 'Missing authorization header' }, { status: 401 })
-        }
-
-        const apiKey = authHeader.replace('Bearer ', '')
-        const authResult = await validateApiKey(apiKey)
+        const authResult = await validateApiKey(request)
 
         if (!authResult.valid) {
-            return NextResponse.json({ error: 'Invalid API key' }, { status: 401 })
+            return NextResponse.json({ error: authResult.error || 'Invalid API key' }, { status: authResult.status || 401 })
         }
 
         const { id: keyId } = await params
@@ -73,16 +67,10 @@ export async function PATCH(
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const authHeader = request.headers.get('authorization')
-        if (!authHeader) {
-            return NextResponse.json({ error: 'Missing authorization header' }, { status: 401 })
-        }
-
-        const apiKey = authHeader.replace('Bearer ', '')
-        const authResult = await validateApiKey(apiKey)
+        const authResult = await validateApiKey(request)
 
         if (!authResult.valid) {
-            return NextResponse.json({ error: 'Invalid API key' }, { status: 401 })
+            return NextResponse.json({ error: authResult.error || 'Invalid API key' }, { status: authResult.status || 401 })
         }
 
         const { id: keyId } = await params
